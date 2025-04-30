@@ -1,0 +1,1883 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=5.0, minimum-scale=1.0, viewport-fit=cover">
+    <title>Activities - Roccia Adventure Park</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Montserrat:wght@400;600;700&display=swap"
+        rel="stylesheet">
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <style>
+        /* Add to your existing CSS */
+        img,
+        video {
+            max-width: 100%;
+            height: auto;
+            display: block;
+        }
+
+        /* Responsive iframes/videos */
+        .video-container {
+            position: relative;
+            padding-bottom: 56.25%;
+            /* 16:9 aspect ratio */
+            height: 0;
+            overflow: hidden;
+        }
+
+        .video-container iframe,
+        .video-container video {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+        }
+
+        /* Add to your :root or body styles */
+        html {
+            font-size: 16px;
+        }
+
+        @media (max-width: 1200px) {
+            html {
+                font-size: 15px;
+            }
+        }
+
+        @media (max-width: 992px) {
+            html {
+                font-size: 14px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            html {
+                font-size: 13px;
+            }
+        }
+
+        @media (max-width: 576px) {
+            html {
+                font-size: 12px;
+            }
+        }
+
+        :root {
+            --primary: #1da96c;
+            --secondary: #2ecc71;
+            --dark: #1a2a3a;
+            --light: #ffffff;
+            --gradient: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            min-height: 100vh;
+            background: var(--dark);
+            background-image: url('enhancedroccia.jpg');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            background-repeat: no-repeat;
+            position: relative;
+            opacity: 0;
+            animation: fadeIn 1s forwards;
+            color: var(--light);
+            overflow-x: hidden;
+        }
+
+        /* Add this after the body style */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: inherit;
+            background-attachment: fixed;
+            filter: blur(10px);
+            z-index: -1;
+        }
+
+        /* Add this overlay to ensure content readability */
+        body::after {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(26, 42, 58, 0.85);
+            /* var(--dark) with opacity */
+            z-index: -1;
+        }
+
+        /* Header Styles */
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 1000;
+            background: rgba(10, 10, 10, 0.95);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 0;
+        }
+
+        .logo {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--light);
+            text-decoration: none;
+        }
+
+        .back-btn {
+            background: var(--gradient);
+            color: var(--light);
+            text-decoration: none;
+            padding: 10px 25px;
+            border-radius: 30px;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+
+        .back-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(29, 169, 108, 0.3);
+        }
+
+        /* Activities Grid */
+        .activities-grid {
+            margin-top: 100px;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            padding: 20px;
+        }
+
+        .activity-category {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 25px;
+            height: 100%;
+            min-height: 300px;
+            display: flex;
+            flex-direction: column;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            opacity: 0;
+            transform: translateY(20px);
+        }
+
+        .activity-category:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+        }
+
+        .category-header {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            height: 70px;
+        }
+
+        .category-icon {
+            min-width: 50px;
+            height: 50px;
+            background: var(--gradient);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+        }
+
+        .category-title {
+            font-size: 1.3rem;
+            line-height: 1.2;
+            margin: 0;
+        }
+
+        .activity-list {
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .activity-item {
+            padding: 12px 15px;
+            border-radius: 8px;
+            background: rgba(255, 255, 255, 0.03);
+            transition: all 0.3s ease;
+            opacity: 0;
+            transform: translateX(-20px);
+        }
+
+        .activity-item:last-child {
+            margin-bottom: 0;
+        }
+
+        .activity-item:hover {
+            padding-left: 10px;
+            color: var(--primary);
+        }
+
+        .activity-name {
+            font-size: 1rem;
+            line-height: 1.4;
+        }
+
+        .activity-price {
+            color: var(--primary);
+            font-weight: 600;
+        }
+
+        .book-btn {
+            display: inline-block;
+            background: var(--gradient);
+            color: var(--light);
+            text-decoration: none;
+            padding: 10px 25px;
+            border-radius: 30px;
+            margin-top: 20px;
+            transition: all 0.3s ease;
+        }
+
+        .book-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(29, 169, 108, 0.3);
+        }
+
+        /* Animations */
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+
+            to {
+                opacity: 1;
+            }
+        }
+
+        @keyframes fadeInUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .activities-grid {
+                grid-template-columns: 1fr;
+                gap: 20px;
+                padding: 15px;
+            }
+
+            .activity-category {
+                min-height: auto;
+                padding: 20px;
+                margin: 0 auto;
+                max-width: 500px;
+                width: 100%;
+            }
+
+            .category-header {
+                height: 60px;
+                margin-bottom: 15px;
+                padding-bottom: 12px;
+            }
+
+            .activity-list {
+                gap: 8px;
+            }
+
+            .activity-item {
+                padding: 10px 12px;
+            }
+        }
+
+        /* Small mobile devices */
+        @media (max-width: 480px) {
+            .activities-grid {
+                gap: 15px;
+                padding: 10px;
+            }
+
+            .activity-category {
+                padding: 15px;
+                border-radius: 15px;
+            }
+
+            .category-header {
+                height: 50px;
+                margin-bottom: 12px;
+                padding-bottom: 10px;
+            }
+
+            .category-icon {
+                min-width: 40px;
+                height: 40px;
+                font-size: 1.2rem;
+            }
+        }
+
+        .pass-section {
+            margin-top: 100px;
+            padding: 40px 0;
+            position: relative;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+            visibility: hidden;
+            display: none;
+            width: 100%;
+            pointer-events: none;
+        }
+
+        .pass-header {
+            text-align: center;
+            margin-bottom: 40px;
+            position: relative;
+        }
+
+        .pass-title {
+            font-size: 2.5rem;
+            font-family: 'Montserrat', sans-serif;
+            color: var(--light);
+            margin-bottom: 10px;
+            position: relative;
+            display: inline-block;
+        }
+
+        .pass-title::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 0;
+            height: 3px;
+            background: var(--gradient);
+            transition: width 0.4s ease;
+        }
+
+        .pass-price {
+            font-size: 1.8rem;
+            color: var(--accent);
+            margin: 15px 0;
+        }
+
+        .pass-description {
+            color: #888;
+            max-width: 600px;
+            margin: 0 auto 30px;
+        }
+
+        /* Add gradient borders to sections */
+        .pass-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 1px;
+            background: var(--gradient);
+        }
+
+        /* Pass Selection Styles */
+        .pass-selector {
+            margin-top: 100px;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+
+        .pass-card {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 15px;
+            padding: 25px;
+            width: 300px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            transform: translateY(30px);
+            opacity: 0;
+            animation: floatUp 0.6s ease forwards;
+        }
+
+        .pass-card:nth-child(2) {
+            animation-delay: 0.2s;
+        }
+
+        .pass-card:nth-child(3) {
+            animation-delay: 0.4s;
+        }
+
+        .pass-card:hover {
+            transform: translateY(-5px) scale(1.03);
+            box-shadow: 0 10px 30px rgba(29, 169, 108, 0.2);
+        }
+
+        .pass-card.active {
+            background: var(--gradient);
+            border-color: transparent;
+        }
+
+        .pass-card h3 {
+            font-size: 1.8rem;
+            margin-bottom: 10px;
+        }
+
+        .pass-card .price {
+            font-size: 2rem;
+            color: var(--primary);
+            margin: 15px 0;
+        }
+
+        .pass-card.active .price {
+            color: var(--light);
+        }
+
+        .pass-card p {
+            font-size: 0.9rem;
+            color: #888;
+            margin-bottom: 20px;
+        }
+
+        .pass-card.active p {
+            color: rgba(255, 255, 255, 0.8);
+        }
+
+        /* Show active pass section */
+        .pass-section.active {
+            opacity: 1;
+            transform: translateY(0);
+            visibility: visible;
+            display: block;
+            pointer-events: all;
+        }
+
+        /* New Animations */
+        @keyframes floatUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeScale {
+            from {
+                opacity: 0;
+                transform: scale(0.9);
+            }
+
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
+        /* Activity Item Enhanced Animations */
+        .active .activity-item {
+            animation: slideIn 0.4s ease forwards;
+        }
+
+        @keyframes slideIn {
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        /* Staggered animations for activity items */
+        .activity-list .activity-item:nth-child(1) {
+            animation-delay: 0.1s;
+        }
+
+        .activity-list .activity-item:nth-child(2) {
+            animation-delay: 0.2s;
+        }
+
+        .activity-list .activity-item:nth-child(3) {
+            animation-delay: 0.3s;
+        }
+
+        .activity-list .activity-item:nth-child(4) {
+            animation-delay: 0.4s;
+        }
+
+        .activity-list .activity-item:nth-child(5) {
+            animation-delay: 0.5s;
+        }
+
+        .activity-list .activity-item:nth-child(6) {
+            animation-delay: 0.6s;
+        }
+
+        .activity-list .activity-item:nth-child(7) {
+            animation-delay: 0.7s;
+        }
+
+        .activity-list .activity-item:nth-child(8) {
+            animation-delay: 0.8s;
+        }
+
+        /* Category Icon Animation */
+        .category-icon i {
+            transition: transform 0.4s ease;
+        }
+
+        .activity-category:hover .category-icon i {
+            transform: scale(1.2) rotate(360deg);
+        }
+
+        /* Pass Title Animation */
+        .active .pass-title::after {
+            width: 50%;
+        }
+
+        .pass-section.active .activity-category {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Add these CSS styles to your existing styles section */
+        .book-now-btn {
+            display: inline-block;
+            background: var(--gradient);
+            color: var(--light);
+            text-decoration: none;
+            padding: 10px 25px;
+            border-radius: 30px;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
+            margin-top: 15px;
+        }
+
+        .book-now-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(29, 169, 108, 0.3);
+        }
+
+        .pass-card.active .book-now-btn {
+            background: rgba(255, 255, 255, 0.2);
+            border: 1px solid rgba(255, 255, 255, 0.4);
+        }
+
+        .pass-card.active .book-now-btn:hover {
+            background: rgba(255, 255, 255, 0.3);
+        }
+
+        /* Add this for initial state message */
+        .initial-message {
+            text-align: center;
+            margin-top: 150px;
+            padding: 40px;
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 1.2rem;
+        }
+
+        /* Image Popup Effect */
+        .activity-item {
+            position: relative;
+        }
+
+        .activity-popup {
+            position: absolute;
+            bottom: 100%;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 200px;
+            background: rgba(0, 0, 0, 0.9);
+            border-radius: 10px;
+            padding: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+            z-index: 100;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+            pointer-events: none;
+        }
+
+        .activity-popup img {
+            width: 100%;
+            border-radius: 5px;
+            margin-bottom: 5px;
+        }
+
+        .activity-popup::after {
+            content: '';
+            position: absolute;
+            top: 100%;
+            left: 50%;
+            transform: translateX(-50%);
+            border-width: 8px;
+            border-style: solid;
+            border-color: rgba(0, 0, 0, 0.9) transparent transparent transparent;
+        }
+
+        .activity-item:hover .activity-popup {
+            opacity: 1;
+            visibility: visible;
+            transform: translateX(-50%) translateY(-10px);
+        }
+
+        /* Mobile Optimizations */
+        @media (max-width: 768px) {
+
+            /* Header adjustments */
+            .header-content {
+                padding: 15px 0;
+            }
+
+            .logo {
+                font-size: 1.4rem;
+            }
+
+            .back-btn {
+                padding: 8px 15px;
+                font-size: 0.9rem;
+            }
+
+            /* Pass selector adjustments */
+            .pass-selector {
+                margin-top: 70px;
+                padding: 15px;
+                gap: 15px;
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .pass-card {
+                width: 100%;
+                max-width: 340px;
+                padding: 20px;
+                margin-bottom: 10px;
+                transform: none !important;
+            }
+
+            .pass-card h3 {
+                font-size: 1.4rem;
+                margin-bottom: 8px;
+            }
+
+            .pass-card .price {
+                font-size: 1.8rem;
+                margin: 10px 0;
+            }
+
+            .pass-card p {
+                font-size: 0.9rem;
+                line-height: 1.4;
+                margin-bottom: 15px;
+            }
+
+            .book-now-btn {
+                padding: 8px 20px;
+                font-size: 0.9rem;
+            }
+
+            /* Pass section adjustments */
+            .pass-section {
+                margin-top: 40px;
+                padding: 20px 0;
+            }
+
+            .pass-header {
+                padding: 0 15px;
+                margin-bottom: 25px;
+            }
+
+            .pass-title {
+                font-size: 1.8rem;
+            }
+
+            .pass-price {
+                font-size: 1.6rem;
+                margin: 10px 0;
+            }
+
+            .pass-description {
+                font-size: 0.9rem;
+                line-height: 1.5;
+                padding: 0 10px;
+            }
+
+            /* Container adjustments */
+            .container {
+                padding: 0 15px;
+            }
+
+            /* Activity category adjustments */
+            .activity-category {
+                margin-bottom: 20px;
+                padding: 15px;
+            }
+
+            .category-header {
+                padding-bottom: 12px;
+                margin-bottom: 12px;
+            }
+
+            .activity-list {
+                margin-top: 10px;
+            }
+        }
+
+        /* Small mobile devices */
+        @media (max-width: 480px) {
+            .pass-selector {
+                margin-top: 60px;
+                padding: 10px;
+            }
+
+            .pass-card {
+                max-width: 300px;
+                padding: 15px;
+            }
+
+            .pass-card h3 {
+                font-size: 1.3rem;
+            }
+
+            .pass-card .price {
+                font-size: 1.6rem;
+            }
+
+            .pass-card p {
+                font-size: 0.85rem;
+            }
+
+            .pass-section {
+                margin-top: 30px;
+            }
+
+            .pass-title {
+                font-size: 1.6rem;
+            }
+
+            .pass-price {
+                font-size: 1.4rem;
+            }
+
+            .pass-description {
+                font-size: 0.85rem;
+                padding: 0 5px;
+            }
+
+            /* Enhanced touch targets */
+            .book-now-btn {
+                width: 100%;
+                padding: 12px 20px;
+                margin-top: 10px;
+            }
+        }
+
+        /* Touch device optimizations */
+        @media (hover: none) {
+            .pass-card {
+                transition: transform 0.2s ease;
+            }
+
+            .pass-card:active {
+                transform: scale(0.98);
+            }
+
+            .book-now-btn:active {
+                transform: scale(0.95);
+            }
+        }
+
+        /* Loading states */
+        .pass-card {
+            transition: transform 0.3s ease, box-shadow 0.3s ease, opacity 0.3s ease;
+        }
+
+        .pass-card.loading {
+            opacity: 0.7;
+        }
+
+        /* Improved animations */
+        @keyframes cardAppear {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .pass-card {
+            animation: cardAppear 0.5s ease forwards;
+        }
+
+        .pass-card:nth-child(2) {
+            animation-delay: 0.1s;
+        }
+
+        .pass-card:nth-child(3) {
+            animation-delay: 0.2s;
+        }
+
+        /* Better visual hierarchy */
+        .pass-card.active {
+            position: relative;
+            z-index: 2;
+        }
+
+        /* Accessibility improvements */
+        .pass-card:focus-within {
+            outline: 2px solid var(--primary);
+            outline-offset: 2px;
+        }
+
+        .book-now-btn:focus {
+            outline: 2px solid var(--light);
+            outline-offset: 2px;
+        }
+
+        /* Dark mode support */
+        @media (prefers-color-scheme: dark) {
+            .pass-card {
+                background: rgba(255, 255, 255, 0.07);
+            }
+
+            .pass-card.active {
+                background: var(--gradient);
+            }
+        }
+
+        /* Grid Layout Improvements */
+        .pass-section .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Equal spacing between sections */
+        .pass-section {
+            margin-bottom: 50px;
+            padding-top: 50px;
+        }
+
+        /* Consistent margins for headers */
+        .pass-header {
+            margin-bottom: 40px;
+            padding: 0 20px;
+        }
+
+        /* Activity category hover effects */
+        .activity-category:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+        }
+
+        /* Consistent spacing for activity items */
+        .activity-item {
+            margin-bottom: 8px;
+        }
+
+        .activity-item:last-child {
+            margin-bottom: 0;
+        }
+
+        /* Category title standardization */
+        .category-title {
+            font-size: 1.3rem;
+            line-height: 1.2;
+            margin: 0;
+        }
+
+        /* Activity name standardization */
+        .activity-name {
+            font-size: 1rem;
+            line-height: 1.4;
+        }
+
+        /* Loading state consistency */
+        .activity-category.loading {
+            opacity: 0.7;
+            pointer-events: none;
+        }
+
+        /* Better transitions */
+        .activity-category {
+            transition: transform 0.3s ease, box-shadow 0.3s ease, opacity 0.3s ease;
+        }
+
+        /* Improved accessibility */
+        .activity-category:focus-within {
+            outline: 2px solid var(--primary);
+            outline-offset: 2px;
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <div class="container">
+            <div class="header-content">
+                <a href="#" class="logo">Adventure Passes</a>
+                <a href="index.html" class="back-btn">Back to Home</a>
+            </div>
+        </div>
+    </header>
+
+    <div class="pass-selector">
+        <div class="pass-card" data-pass="leisure">
+            <h3>Leisure Pass</h3>
+            <div class="price">₹1,149</div>
+            <p>Perfect for families and beginners looking for a fun-filled adventure experience with 40+ activities</p>
+            <a href="booking.html" class="book-now-btn">Book Now</a>
+        </div>
+        <div class="pass-card" data-pass="adventure">
+            <h3>Adventure Pass</h3>
+            <div class="price">₹1,499</div>
+            <p>For thrill-seekers ready to take their adventure to the next level with 45+ activities</p>
+            <a href="booking.html" class="book-now-btn">Book Now</a>
+        </div>
+        <div class="pass-card" data-pass="extreme">
+            <h3>Extreme Pass</h3>
+            <div class="price">₹1,999</div>
+            <p>Ultimate adventure experience for the most daring thrill-seekers with 50+ activities</p>
+            <a href="booking.html" class="book-now-btn">Book Now</a>
+        </div>
+    </div>
+
+    <div class="book-now-container" style="text-align: center; margin: 30px 0;">
+        <a href="booking.html" class="book-now-btn" style="display: inline-block; background: var(--gradient); color: var(--light); text-decoration: none; padding: 15px 40px; border-radius: 30px; font-weight: 600; font-size: 1.2rem; transition: all 0.3s ease;">
+            Book Your Adventure Now
+        </a>
+    </div>
+
+    <div class="initial-message">
+        Please select a pass above to view its activities
+    </div>
+
+    <!-- Leisure Pass Section -->
+    <section class="pass-section" id="leisure">
+        <div class="container">
+            <div class="pass-header">
+                <h2 class="pass-title">Leisure Pass</h2>
+                <div class="pass-price">₹1,149</div>
+                <p class="pass-description">Perfect for families and beginners looking for a fun-filled adventure
+                    experience with 40+ activities</p>
+            </div>
+
+            <div class="activities-grid">
+                <!-- Adventure Activities -->
+                <div class="activity-category" data-aos="fade-up">
+                    <div class="category-header">
+                        <div class="category-icon">
+                            <i class="fas fa-mountain"></i>
+                        </div>
+                        <h2 class="category-title">Adventure Activities</h2>
+                    </div>
+
+                    <ul class="activity-list">
+                        <li class="activity-item">
+                            <span class="activity-name">Zipline</span>
+                            <div class="activity-popup">
+                                <img src="Zipline.jpg" alt="Zipline Activity">
+                                <div>Soar through the air on our thrilling zipline adventure!</div>
+                            </div>
+                        </li>
+                        <li class="activity-item">
+                            <span class="activity-name">Zipcycle</span>
+                            <div class="activity-popup">
+                                <img src="zipcycle.png" alt="Zipcycle Activity">
+                                <div>Pedal through the sky on our unique aerial cycling adventure!</div>
+                            </div>
+                        </li>
+                        <li class="activity-item">
+                            <span class="activity-name">Rock Climbing</span>
+                            <div class="activity-popup">
+                                <img src="wallclimb.jpg" alt="Rock Climbing Activity">
+                                <div>Challenge yourself on our professional climbing walls!</div>
+                            </div>
+                        </li>
+                        <li class="activity-item">
+                            <span class="activity-name">Rope Course</span>
+                            <div class="activity-popup">
+                                <img src="ropecourse.jpg" alt="Rope Course Activity">
+                                <div>Test your balance and courage on our aerial obstacle course!</div>
+                            </div>
+                        </li>
+                        <li class="activity-item">
+                            <span class="activity-name">Reverse Bungee</span>
+                            <div class="activity-popup">
+                                <img src="reversebunjee.jpg" alt="Zipline Activity">
+                                <div>Experience the thrill of flying through the air!</div>
+                            </div>
+                        </li>
+                        <li class="activity-item">
+                            <span class="activity-name">Running Bungee</span>
+                            <div class="activity-popup">
+                                <img src="runningbunjee.jpg" alt="Zipline Activity">
+                                <div>Experience the thrill of flying through the air!</div>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- Kids Activities -->
+                <div class="activity-category" data-aos="fade-up" data-aos-delay="100">
+                    <div class="category-header">
+                        <div class="category-icon">
+                            <i class="fas fa-child"></i>
+                        </div>
+                        <h2 class="category-title">Kids Activities</h2>
+                    </div>
+                    <ul class="activity-list">
+                        <li class="activity-item">
+                            <span class="activity-name">Children Zipline</span>
+                            <div class="activity-popup">
+                                <img src="childrenzipline.jpg" alt="Zipline Activity">
+                                <div>Safe and exciting aerial adventures for young thrill-seekers!</div>
+                            </div>
+                        </li>
+                        <li class="activity-item">
+                            <span class="activity-name">Children Rock Climbing</span>
+                            <div class="activity-popup">
+                                <img src="childrenwallclimb.jpg" alt="Zipline Activity">
+                                <div>Kid-friendly climbing walls for budding adventurers!</div>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- Water Activities -->
+                <div class="activity-category" data-aos="fade-up" data-aos-delay="200">
+                    <div class="category-header">
+                        <div class="category-icon">
+                            <i class="fas fa-water"></i>
+                        </div>
+                        <h2 class="category-title">Water Activities</h2>
+                    </div>
+                    <ul class="activity-list">
+                        <li class="activity-item">
+                            <span class="activity-name">Rain Dance</span>
+                            <div class="activity-popup">
+                                <img src="raindance.jpg" alt="Rain Dance Activity">
+                                <div>Dance and splash in our refreshing water party zone!</div>
+                            </div>
+                        </li>
+                        <li class="activity-item">
+                            <span class="activity-name">Mini Water Park</span>
+                            <div class="activity-popup">
+                                <img src="waterpark.jpg" alt="Mini Water Park Activity">
+                                <div>Cool off with splashing fun for the whole family!</div>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- Fun Activities -->
+                <div class="activity-category" data-aos="fade-up" data-aos-delay="300">
+                    <div class="category-header">
+                        <div class="category-icon">
+                            <i class="fas fa-smile-beam"></i>
+                        </div>
+                        <h2 class="category-title">Fun Activities</h2>
+                    </div>
+                    <ul class="activity-list">
+                        <li class="activity-item">
+                            <span class="activity-name">Human Gyro</span>
+                            <div class="activity-popup">
+                                <img src="humangyro.jpg" alt="Human Gyro Activity">
+                                <div>Experience multi-directional spins in our amazing gyroscope!</div>
+                            </div>
+                        </li>
+                        <li class="activity-item">
+                            <span class="activity-name">Rocket Boom</span>
+                            <div class="activity-popup">
+                                <img src="rocketboom.jpg" alt="Rocket Boom Activity">
+                                <div>Blast off into excitement with our vertical launch experience!</div>
+                            </div>
+                        </li>
+                        <li class="activity-item">
+                            <span class="activity-name">Meltdown</span>
+                            <div class="activity-popup">
+                                <img src="meltdown.jpg" alt="Meltdown Activity">
+                                <div>Feel the adrenaline rush as you experience our thrilling meltdown ride!</div>
+                            </div>
+                        </li>
+                        <li class="activity-item">
+                            <span class="activity-name">Human Foosball</span>
+                            <div class="activity-popup">
+                                <img src="humanfoosball.jpg" alt="Human Foosball Activity">
+                                <div>Play life-sized foosball with your friends in this exciting team game!</div>
+                            </div>
+                        </li>
+                        <li class="activity-item">
+                            <span class="activity-name">Archery</span>
+                            <div class="activity-popup">
+                                <img src="archery.jpg" alt="Archery Activity">
+                                <div>Test your aim and precision with our professional archery range!</div>
+                            </div>
+                        </li>
+                        <li class="activity-item">
+                            <span class="activity-name">Cricket</span>
+                            <div class="activity-popup">
+                                <img src="cricket.jpg" alt="Cricket Activity">
+                                <div>Enjoy a friendly game of cricket in our well-maintained sports area!</div>
+                            </div>
+                        </li>
+                        <li class="activity-item">
+                            <span class="activity-name">Human Wrestling</span>
+                            <div class="activity-popup">
+                                <img src="humanwrestling.jpg" alt="Human Wrestling Activity">
+                                <div>Challenge your friends in our safe and fun wrestling arena!</div>
+                            </div>
+                        </li>
+                        <li class="activity-item">
+                            <span class="activity-name">Reverse and Other Cycle</span>
+                            <div class="activity-popup">
+                                <img src="reversecycle.jpg" alt="Reverse Cycle Activity">
+                                <div>Try your hand at riding unique and challenging bicycle designs!</div>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- Virtual Reality & Special -->
+                <div class="activity-category" data-aos="fade-up" data-aos-delay="400">
+                    <div class="category-header">
+                        <div class="category-icon">
+                            <i class="fas fa-vr-cardboard"></i>
+                        </div>
+                        <h2 class="category-title">Virtual Reality & Special</h2>
+                    </div>
+                    <ul class="activity-list">
+                        <li class="activity-item">
+                            <span class="activity-name">VR Baby Bear</span>
+                            <div class="activity-popup">
+                                <img src="vrbabybear.jpg" alt="VR Baby Bear Experience">
+                                <div>Immerse yourself in a virtual world with our baby bear VR experience!</div>
+                            </div>
+                        </li>
+                        <li class="activity-item">
+                            <span class="activity-name">VR Horse</span>
+                            <div class="activity-popup">
+                                <img src="vrhorse.jpg" alt="VR Horse Experience">
+                                <div>Experience the thrill of virtual horse riding in our VR simulation!</div>
+                            </div>
+                        </li>
+                        <li class="activity-item">
+                            <span class="activity-name">Illusion Room</span>
+                            <div class="activity-popup">
+                                <img src="illusionroom.jpg" alt="Illusion Room Experience">
+                                <div>Step into a world of optical illusions and mind-bending experiences!</div>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Adventure Pass Section -->
+    <section class="pass-section" id="adventure">
+        <div class="container">
+            <div class="pass-header">
+                <h2 class="pass-title">Adventure Pass</h2>
+                <div class="pass-price">₹1,499</div>
+                <p class="pass-description">For thrill-seekers ready to take their adventure to the next level with 45+
+                    activities</p>
+            </div>
+
+            <div class="activities-grid">
+                <!-- Adventure Activities -->
+                <div class="activity-category" data-aos="fade-up">
+                    <div class="category-header">
+                        <div class="category-icon">
+                            <i class="fas fa-hiking"></i>
+                        </div>
+                        <h2 class="category-title">Adventure Activities</h2>
+                    </div>
+                    <ul class="activity-list">
+                        <li class="activity-item">
+                            <span class="activity-name">Zipline</span>
+                            <div class="activity-popup">
+                                <img src="Zipline.jpg" alt="Zipline Activity">
+                                <div>Soar through the air on our thrilling zipline adventure!</div>
+                            </div>
+                        </li>
+                        <li class="activity-item">
+                            <span class="activity-name">Sky Walk</span>
+                            <div class="activity-popup">
+                                <img src="skywalk.jpg" alt="Sky Walk Activity">
+                                <div>Walk among the clouds with breathtaking panoramic views!</div>
+                            </div>
+                        </li>
+                        <li class="activity-item">
+                            <span class="activity-name">Zipcycle</span>
+                            <div class="activity-popup">
+                                <img src="zipcycle.png" alt="Zipcycle Activity">
+                                <div>Pedal through the sky on our unique aerial cycling adventure!</div>
+                            </div>
+                        </li>
+                        <li class="activity-item">
+                            <span class="activity-name">Human Sling Shot</span>
+                            <div class="activity-popup">
+                                <img src="humanslingshot.jpg" alt="Human Sling Shot Activity">
+                                <div>Experience the thrill of flying through the air!</div>
+                            </div>
+                        </li>
+                        <li class="activity-item">
+                            <span class="activity-name">Rock Climbing</span>
+                            <div class="activity-popup">
+                                <img src="wallclimb.jpg" alt="Rock Climbing Activity">
+                                <div>Challenge yourself on our professional climbing walls!</div>
+                            </div>
+                        </li>
+                        <li class="activity-item">
+                            <span class="activity-name">Reverse Bungee</span>
+                            <div class="activity-popup">
+                                <img src="reversebunjee.jpg" alt="Zipline Activity">
+                                <div>Experience the thrill of flying through the air!</div>
+                            </div>
+                        </li>
+                        <li class="activity-item">
+                            <span class="activity-name">Rope Course</span>
+                            <div class="activity-popup">
+                                <img src="ropecourse.jpg" alt="Rope Course Activity">
+                                <div>Test your balance and courage on our aerial obstacle course!</div>
+                            </div>
+                        </li>
+                        <li class="activity-item">
+                            <span class="activity-name">Running Bungee</span>
+                            <div class="activity-popup">
+                                <img src="runningbunjee.jpg" alt="Zipline Activity">
+                                <div>Experience the thrill of flying through the air!</div>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- Kids Activities -->
+                <div class="activity-category" data-aos="fade-up" data-aos-delay="100">
+                    <div class="category-header">
+                        <div class="category-icon">
+                            <i class="fas fa-child"></i>
+                        </div>
+                        <h2 class="category-title">Kids Activities</h2>
+                    </div>
+                    <ul class="activity-list">
+                        <li class="activity-item">
+                            <span class="activity-name">Children Zipline</span>
+                            <div class="activity-popup">
+                                <img src="childrenzipline.jpg" alt="Zipline Activity">
+                                <div>Safe and exciting aerial adventures for young thrill-seekers!</div>
+                            </div>
+                        </li>
+                        <li class="activity-item">
+                            <span class="activity-name">Children Rock Climbing</span>
+                            <div class="activity-popup">
+                                <img src="childrenwallclimb.jpg" alt="Zipline Activity">
+                                <div>Kid-friendly climbing walls for budding adventurers!</div>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- Water Activities -->
+                <div class="activity-category" data-aos="fade-up" data-aos-delay="200">
+                    <div class="category-header">
+                        <div class="category-icon">
+                            <i class="fas fa-water"></i>
+                        </div>
+                        <h2 class="category-title">Water Activities</h2>
+                    </div>
+                    <ul class="activity-list">
+                        <li class="activity-item">
+                            <span class="activity-name">Rain Dance</span>
+                            <div class="activity-popup">
+                                <img src="raindance.jpg" alt="Rain Dance Activity">
+                                <div>Dance and splash in our refreshing water party zone!</div>
+                            </div>
+                        </li>
+                        <li class="activity-item">
+                            <span class="activity-name">Mini Water Park</span>
+                            <div class="activity-popup">
+                                <img src="waterpark.jpg" alt="Mini Water Park Activity">
+                                <div>Cool off with splashing fun for the whole family!</div>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- Fun Activities -->
+                <div class="activity-category" data-aos="fade-up" data-aos-delay="300">
+                    <div class="category-header">
+                        <div class="category-icon">
+                            <i class="fas fa-smile-beam"></i>
+                        </div>
+                        <h2 class="category-title">Fun Activities</h2>
+                    </div>
+                    <ul class="activity-list">
+                        <li class="activity-item">
+                            <span class="activity-name">Human Gyro</span>
+                            <div class="activity-popup">
+                                <img src="humangyro.jpg" alt="Human Gyro Activity">
+                                <div>Experience multi-directional spins in our amazing gyroscope!</div>
+                            </div>
+                        </li>
+                        <li class="activity-item">
+                            <span class="activity-name">Rocket Boom</span>
+                            <div class="activity-popup">
+                                <img src="rocketboom.jpg" alt="Rocket Boom Activity">
+                                <div>Blast off into excitement with our vertical launch experience!</div>
+                            </div>
+                        </li>
+                        <li class="activity-item">
+                            <span class="activity-name">Meltdown</span>
+                            <div class="activity-popup">
+                                <img src="meltdown.jpg" alt="Meltdown Activity">
+                                <div>Feel the adrenaline rush as you experience our thrilling meltdown ride!</div>
+                            </div>
+                        </li>
+                        <li class="activity-item">
+                            <span class="activity-name">Human Foosball</span>
+                            <div class="activity-popup">
+                                <img src="humanfoosball.jpg" alt="Human Foosball Activity">
+                                <div>Play life-sized foosball with your friends in this exciting team game!</div>
+                            </div>
+                        </li>
+                        <li class="activity-item">
+                            <span class="activity-name">Archery</span>
+                            <div class="activity-popup">
+                                <img src="archery.jpg" alt="Archery Activity">
+                                <div>Test your aim and precision with our professional archery range!</div>
+                            </div>
+                        </li>
+                        <li class="activity-item">
+                            <span class="activity-name">Cricket</span>
+                            <div class="activity-popup">
+                                <img src="cricket.jpg" alt="Cricket Activity">
+                                <div>Enjoy a friendly game of cricket in our well-maintained sports area!</div>
+                            </div>
+                        </li>
+                        <li class="activity-item">
+                            <span class="activity-name">Human Wrestling</span>
+                            <div class="activity-popup">
+                                <img src="humanwrestling.jpg" alt="Human Wrestling Activity">
+                                <div>Challenge your friends in our safe and fun wrestling arena!</div>
+                            </div>
+                        </li>
+                        <li class="activity-item">
+                            <span class="activity-name">Reverse and Other Cycle</span>
+                            <div class="activity-popup">
+                                <img src="reversecycle.jpg" alt="Reverse Cycle Activity">
+                                <div>Try your hand at riding unique and challenging bicycle designs!</div>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- Virtual Reality & Special -->
+                <div class="activity-category" data-aos="fade-up" data-aos-delay="400">
+                    <div class="category-header">
+                        <div class="category-icon">
+                            <i class="fas fa-vr-cardboard"></i>
+                        </div>
+                        <h2 class="category-title">Virtual Reality & Special</h2>
+                    </div>
+                    <ul class="activity-list">
+                        <li class="activity-item">
+                            <span class="activity-name">VR Baby Bear</span>
+                            <div class="activity-popup">
+                                <img src="vrbabybear.jpg" alt="VR Baby Bear Experience">
+                                <div>Immerse yourself in a virtual world with our baby bear VR experience!</div>
+                            </div>
+                        </li>
+                        <li class="activity-item">
+                            <span class="activity-name">VR Horse</span>
+                            <div class="activity-popup">
+                                <img src="vrhorse.jpg" alt="VR Horse Experience">
+                                <div>Experience the thrill of virtual horse riding in our VR simulation!</div>
+                            </div>
+                        </li>
+                        <li class="activity-item">
+                            <span class="activity-name">9D VR Cinematic</span>
+                            <div class="activity-popup">
+                                <img src="9dvrcenematic.jpg" alt="9D VR Cinematic Activity">
+                                <div>Immerse yourself in mind-blowing virtual reality adventures!</div>
+                            </div>
+                        </li>
+                        <li class="activity-item">
+                            <span class="activity-name">9D VR Seat/2</span>
+                            <div class="activity-popup">
+                                <img src="vregg.jpg" alt="9D VR Seat/2 Activity">
+                                <div>Experience the thrill of flying through the air!</div>
+                            </div>
+                        </li>
+                        <li class="activity-item">
+                            <span class="activity-name">Illusion Room</span>
+                            <div class="activity-popup">
+                                <img src="illusionroom.jpg" alt="Illusion Room Experience">
+                                <div>Step into a world of optical illusions and mind-bending experiences!</div>
+                            </div>
+                        </li>
+                        <li class="activity-item">
+                            <span class="activity-name">Air Rifle</span>
+                            <div class="activity-popup">
+                                <img src="airrifle.jpg" alt="Air Rifle Activity">
+                                <div>Experience the thrill of flying through the air!</div>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Extreme Pass Section -->
+    <section class="pass-section" id="extreme">
+        <div class="container">
+            <div class="pass-header">
+                <h2 class="pass-title">Extreme Pass</h2>
+                <div class="pass-price">₹1,999</div>
+                <p class="pass-description">Ultimate adventure experience for the most daring thrill-seekers with 50+
+                    activities</p>
+            </div>
+
+            <div class="activities-grid">
+                <!-- Adventure Activities -->
+                <div class="activity-category" data-aos="fade-up">
+                    <div class="category-header">
+                        <div class="category-icon">
+                            <i class="fas fa-fire"></i>
+                        </div>
+                        <h2 class="category-title">Extreme Adventures</h2>
+                    </div>
+                    <ul class="activity-list">
+                        <li class="activity-item">
+                            <span class="activity-name">Zipline</span>
+                            <div class="activity-popup">
+                                <img src="Zipline.jpg" alt="Zipline Activity">
+                                <div>Experience the thrill of flying through the air!</div>
+                            </div>
+                        </li>
+                        <li class="activity-item">
+                            <span class="activity-name">Free Fly</span>
+                            <div class="activity-popup">
+                                <img src="freefall.jpg" alt="Free Fly Activity">
+                                <div>Experience the ultimate freedom of flight!</div>
+                            </div>
+                        </li>
+                        <li class="activity-item">
+                            <span class="activity-name">Sky Walk</span>
+                            <div class="activity-popup">
+                                <img src="skywalk.jpg" alt="Sky Walk Activity">
+                                <div>Walk among the clouds with stunning views!</div>
+                            </div>
+                        </li>
+                        <li class="activity-item">
+                            <span class="activity-name">Zipcycle</span>
+                            <div class="activity-popup">
+                                <img src="zipcycle.png" alt="Zipline Activity">
+                                <div>Experience the thrill of flying through the air!</div>
+                            </div>
+                        </li>
+                        <li class="activity-item">
+                            <span class="activity-name">Human Sling Shot</span>
+                            <div class="activity-popup">
+                                <img src="humanslingshot.jpg" alt="Human Sling Shot Activity">
+                                <div>Experience the thrill of flying through the air!</div>
+                            </div>
+                        </li>
+                        <li class="activity-item">
+                            <span class="activity-name">Rock Climbing</span>
+                            <div class="activity-popup">
+                                <img src="wallclimb.jpg" alt="Zipline Activity">
+                                <div>Experience the thrill of flying through the air!</div>
+                            </div>
+                        </li>
+                        <li class="activity-item">
+                            <span class="activity-name">Paint Ball</span>
+                            <div class="activity-popup">
+                                <img src="paintball.jpg" alt="Paint Ball Activity">
+                                <div>Experience the thrill of flying through the air!</div>
+                            </div>
+                        </li>
+                        <li class="activity-item">
+                            <span class="activity-name">Reverse Bungee</span>
+                            <div class="activity-popup">
+                                <img src="reversebunjee.jpg" alt="Zipline Activity">
+                                <div>Experience the thrill of flying through the air!</div>
+                            </div>
+                        </li>
+                        <li class="activity-item">
+                            <span class="activity-name">Rope Course</span>
+                            <div class="activity-popup">
+                                <img src="ropecourse.jpg" alt="Zipline Activity">
+                                <div>Experience the thrill of flying through the air!</div>
+                            </div>
+                        </li>
+                        <li class="activity-item">
+                            <span class="activity-name">Running Bungee</span>
+                            <div class="activity-popup">
+                                <img src="runningbunjee.jpg" alt="Zipline Activity">
+                                <div>Experience the thrill of flying through the air!</div>
+                            </div>
+                        </li>
+                        <li class="activity-item">
+                            <span class="activity-name">ATV</span>
+                            <div class="activity-popup">
+                                <img src="atv.jpg" alt="ATV Activity">
+                                <div>Experience the thrill of flying through the air!</div>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- Kids Activities -->
+                <div class="activity-category" data-aos="fade-up" data-aos-delay="100">
+                    <div class="category-header">
+                        <div class="category-icon">
+                            <i class="fas fa-child"></i>
+                        </div>
+                        <h2 class="category-title">Kids Activities</h2>
+                    </div>
+                    <ul class="activity-list">
+                        <li class="activity-item">
+                            <span class="activity-name">Children Zipline</span>
+                            <div class="activity-popup">
+                                <img src="childrenzipline.jpg" alt="Zipline Activity">
+                                <div>Experience the thrill of flying through the air!</div>
+                            </div>
+                        </li>
+                        <li class="activity-item">
+                            <span class="activity-name">Children Rock Climbing</span>
+                            <div class="activity-popup">
+                                <img src="childrenwallclimb.jpg" alt="Zipline Activity">
+                                <div>Experience the thrill of flying through the air!</div>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- Water Activities -->
+                <div class="activity-category" data-aos="fade-up" data-aos-delay="200">
+                    <div class="category-header">
+                        <div class="category-icon">
+                            <i class="fas fa-water"></i>
+                        </div>
+                        <h2 class="category-title">Water Activities</h2>
+                    </div>
+                    <ul class="activity-list">
+                        <li class="activity-item">
+                            <span class="activity-name">Rain Dance</span>
+                            <div class="activity-popup">
+                                <img src="raindance.jpg" alt="Rain Dance Activity">
+                                <div>Dance and splash in our refreshing water party zone!</div>
+                            </div>
+                        </li>
+                        <li class="activity-item">
+                            <span class="activity-name">Mini Water Park</span>
+                            <div class="activity-popup">
+                                <img src="waterpark.jpg" alt="Mini Water Park Activity">
+                                <div>Cool off with splashing fun for the whole family!</div>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- Fun Activities -->
+                <div class="activity-category" data-aos="fade-up" data-aos-delay="300">
+                    <div class="category-header">
+                        <div class="category-icon">
+                            <i class="fas fa-smile-beam"></i>
+                        </div>
+                        <h2 class="category-title">Fun Activities</h2>
+                    </div>
+                    <ul class="activity-list">
+                        <li class="activity-item">
+                            <span class="activity-name">Human Gyro</span>
+                            <div class="activity-popup">
+                                <img src="humangyro.jpg" alt="Human Gyro Activity">
+                                <div>Experience multi-directional spins in our amazing gyroscope!</div>
+                            </div>
+                        </li>
+                        <li class="activity-item">
+                            <span class="activity-name">Rocket Boom</span>
+                            <div class="activity-popup">
+                                <img src="rocketboom.jpg" alt="Rocket Boom Activity">
+                                <div>Blast off into excitement with our vertical launch experience!</div>
+                            </div>
+                        </li>
+                        <li class="activity-item">
+                            <span class="activity-name">Meltdown</span>
+                            <div class="activity-popup">
+                                <img src="meltdown.jpg" alt="Meltdown Activity">
+                                <div>Feel the adrenaline rush as you experience our thrilling meltdown ride!</div>
+                            </div>
+                        </li>
+                        <li class="activity-item">
+                            <span class="activity-name">Human Foosball</span>
+                            <div class="activity-popup">
+                                <img src="humanfoosball.jpg" alt="Human Foosball Activity">
+                                <div>Play life-sized foosball with your friends in this exciting team game!</div>
+                            </div>
+                        </li>
+                        <li class="activity-item">
+                            <span class="activity-name">Archery</span>
+                            <div class="activity-popup">
+                                <img src="archery.jpg" alt="Archery Activity">
+                                <div>Test your aim and precision with our professional archery range!</div>
+                            </div>
+                        </li>
+                        <li class="activity-item">
+                            <span class="activity-name">Cricket</span>
+                            <div class="activity-popup">
+                                <img src="cricket.jpg" alt="Cricket Activity">
+                                <div>Enjoy a friendly game of cricket in our well-maintained sports area!</div>
+                            </div>
+                        </li>
+                        <li class="activity-item">
+                            <span class="activity-name">Human Wrestling</span>
+                            <div class="activity-popup">
+                                <img src="humanwrestling.jpg" alt="Human Wrestling Activity">
+                                <div>Challenge your friends in our safe and fun wrestling arena!</div>
+                            </div>
+                        </li>
+                        <li class="activity-item">
+                            <span class="activity-name">Reverse and Other Cycle</span>
+                            <div class="activity-popup">
+                                <img src="reversecycle.jpg" alt="Reverse Cycle Activity">
+                                <div>Try your hand at riding unique and challenging bicycle designs!</div>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- Virtual Reality & Special -->
+                <div class="activity-category" data-aos="fade-up" data-aos-delay="400">
+                    <div class="category-header">
+                        <div class="category-icon">
+                            <i class="fas fa-vr-cardboard"></i>
+                        </div>
+                        <h2 class="category-title">Virtual Reality & Special</h2>
+                    </div>
+                    <ul class="activity-list">
+                        <li class="activity-item">
+                            <span class="activity-name">VR Baby Bear</span>
+                            <div class="activity-popup">
+                                <img src="vrbabybear.jpg" alt="VR Baby Bear Experience">
+                                <div>Immerse yourself in a virtual world with our baby bear VR experience!</div>
+                            </div>
+                        </li>
+                        <li class="activity-item">
+                            <span class="activity-name">VR Horse</span>
+                            <div class="activity-popup">
+                                <img src="vrhorse.jpg" alt="VR Horse Experience">
+                                <div>Experience the thrill of virtual horse riding in our VR simulation!</div>
+                            </div>
+                        </li>
+                        <li class="activity-item">
+                            <span class="activity-name">9D VR Cinematic</span>
+                            <div class="activity-popup">
+                                <img src="9dvrcenematic.jpg" alt="9D VR Cinematic Activity">
+                                <div>Immerse yourself in mind-blowing virtual reality adventures!</div>
+                            </div>
+                        </li>
+                        <li class="activity-item">
+                            <span class="activity-name">9D VR Seat/2</span>
+                            <div class="activity-popup">
+                                <img src="vregg.jpg" alt="9D VR Seat/2 Activity">
+                                <div>Experience the thrill of flying through the air!</div>
+                            </div>
+                        </li>
+                        <li class="activity-item">
+                            <span class="activity-name">Illusion Room</span>
+                            <div class="activity-popup">
+                                <img src="illusionroom.jpg" alt="Illusion Room Experience">
+                                <div>Step into a world of optical illusions and mind-bending experiences!</div>
+                            </div>
+                        </li>
+                        <li class="activity-item">
+                            <span class="activity-name">Air Rifle</span>
+                            <div class="activity-popup">
+                                <img src="airrifle.jpg" alt="Air Rifle Activity">
+                                <div>Experience the thrill of flying through the air!</div>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <script>
+        // Initialize AOS
+        AOS.init({
+            duration: 1000,
+            once: true
+        });
+
+        // Navbar scroll effect
+        window.addEventListener('scroll', () => {
+            const nav = document.querySelector('.navbar');
+            if (window.scrollY > 100) {
+                nav.classList.add('scrolled');
+            } else {
+                nav.classList.remove('scrolled');
+            }
+        });
+
+        // Smooth page transitions
+        document.querySelectorAll('a').forEach(link => {
+            link.addEventListener('click', function (e) {
+                if (this.getAttribute('href').startsWith('#')) return;
+
+                e.preventDefault();
+                document.body.style.opacity = '0';
+                document.body.style.transition = 'opacity 0.3s ease';
+
+                setTimeout(() => {
+                    window.location.href = this.href;
+                }, 300);
+            });
+        });
+
+        // Handle refresh and back button
+        window.addEventListener('load', function () {
+            // Check if this is a page refresh/reload
+            if (performance.navigation.type === 1) { // 1 indicates page refresh
+                window.location.href = 'index.html';
+            } else {
+                // If it's a normal page load, fade in the content
+                document.body.style.opacity = '1';
+            }
+        });
+
+        // Update the popstate handler as well
+        window.addEventListener('popstate', function () {
+            window.location.href = 'index.html';
+        });
+
+        // Update the JavaScript pass selection functionality
+        document.addEventListener('DOMContentLoaded', function () {
+            const passCards = document.querySelectorAll('.pass-card');
+            const passSections = document.querySelectorAll('.pass-section');
+            const initialMessage = document.querySelector('.initial-message');
+
+            passCards.forEach(card => {
+                card.addEventListener('click', function () {
+                    const clickedPassId = this.getAttribute('data-pass');
+
+                    // Don't do anything if clicking the already active pass
+                    if (this.classList.contains('active')) return;
+
+                    // Remove active class from all cards
+                    passCards.forEach(c => c.classList.remove('active'));
+
+                    // Add active class to clicked card
+                    this.classList.add('active');
+
+                    // Hide initial message
+                    initialMessage.style.display = 'none';
+
+                    // Handle section transition
+                    passSections.forEach(section => {
+                        if (section.id === clickedPassId) {
+                            section.classList.add('active');
+                            // Reset transform and opacity after adding active class
+                            setTimeout(() => {
+                                section.style.transform = 'translateY(0)';
+                                section.style.opacity = '1';
+                            }, 50);
+                        } else {
+                            section.classList.remove('active');
+                        }
+                    });
+
+                    // Smooth scroll to the new section
+                    const targetSection = document.getElementById(clickedPassId);
+                    setTimeout(() => {
+                        targetSection.scrollIntoView({
+                            behavior: 'smooth',
+                            block: 'start'
+                        });
+                    }, 100);
+                });
+            });
+
+            // Initialize AOS for activity categories
+            document.querySelectorAll('.activity-category').forEach((category, index) => {
+                category.style.transitionDelay = `${index * 0.1}s`;
+            });
+        });
+
+        // Enhanced button transition
+        document.querySelectorAll('.book-now-btn').forEach(btn => {
+            btn.addEventListener('click', function (e) {
+                e.preventDefault();
+
+                // Add click animation
+                this.style.transform = 'scale(0.95)';
+                setTimeout(() => {
+                    this.style.transform = 'scale(1)';
+                }, 100);
+
+                // Fade out page and redirect
+                document.body.style.opacity = '0';
+                document.body.style.transition = 'opacity 0.3s ease';
+
+                setTimeout(() => {
+                    window.location.href = this.href;
+                }, 300);
+            });
+        });
+    </script>
+</body>
+
+</html>
